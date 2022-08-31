@@ -1,0 +1,4021 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "3c2H-XR4k"
+      },
+      "description": "for each day",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 74,
+            "lineWidth": 1
+          },
+          "mappings": [],
+          "max": 20,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 100,
+      "options": {
+        "colWidth": 0.9,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "\nselect avg(sample) as \" activation \", minute(timestamp) as \"time\" \nfrom light \nwhere  sample<20 and DAY(timestamp)=DAY(current_date())and month(timestamp)=month(current_date())and year(timestamp)=year(current_date())\ngroup by minute(timestamp);\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "sampleid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "humidity",
+          "timeColumn": "timestamp",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Activation of the lighting system ",
+      "transparent": true,
+      "type": "status-history"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "3c2H-XR4k"
+      },
+      "description": "for each day",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-YlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 2
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 14,
+        "x": 0,
+        "y": 5
+      },
+      "id": 99,
+      "options": {
+        "colWidth": 0.5,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "rowHeight": 0.59,
+        "showValue": "never",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "\nselect avg(sample) as \" activation \", minute(timestamp) as \"time\" \nfrom temperature \nwhere  sample>26 and DAY(timestamp)=DAY(current_date())and month(timestamp)=month(current_date())and year(timestamp)=year(current_date())\ngroup by minute(timestamp);\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "sampleid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "humidity",
+          "timeColumn": "timestamp",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Activation of the ventilation system ",
+      "transparent": true,
+      "type": "status-history"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "3c2H-XR4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 10,
+        "x": 14,
+        "y": 5
+      },
+      "id": 93,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select sum((60-sample)*0.3) as Litri\nfrom humidity as prima \nwhere \nsample<40 \nand\nMONTH(timestamp)=MONTH(current_date())\nand \nYEAR(timestamp)=YEAR(current_date())\nand\nDATE_ADD(timestamp, interval 10 SECOND) IN ( select timestamp\n                                             from humidity\n                                             where machineid=prima.machineid \n                                             and \n                                             sample>=60 \n                                             )\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "sampleid"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "humidity",
+          "timeColumn": "timestamp",
+          "timeColumnType": "timestamp",
+          "where": []
+        }
+      ],
+      "title": "Water used in last month",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 58,
+      "panels": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 0,
+            "y": 13
+          },
+          "id": 70,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 1\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 40,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 4,
+            "y": 13
+          },
+          "id": 66,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 1\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 8,
+            "y": 13
+          },
+          "id": 85,
+          "options": {
+            "displayMode": "lcd",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "orientation": "vertical",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 1\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "1"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidity",
+          "transparent": true,
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 40
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "blue",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 13
+          },
+          "id": 62,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 1\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "1"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidty",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 42,
+                "axisSoftMin": -3,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 8,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 21
+          },
+          "id": 68,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 1\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "1"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "yellow",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 21
+          },
+          "id": 64,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 1\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "light",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "1"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "timeseries"
+        }
+      ],
+      "title": "GreenHouse_N1",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 84,
+      "panels": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 0,
+            "y": 14
+          },
+          "id": 78,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 2\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 40,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 4,
+            "y": 14
+          },
+          "id": 82,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 2\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 8,
+            "y": 14
+          },
+          "id": 72,
+          "options": {
+            "displayMode": "lcd",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "orientation": "vertical",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 2\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "2"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidity",
+          "transparent": true,
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 40
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "blue",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 14
+          },
+          "id": 74,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 2\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "2"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidty",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 42,
+                "axisSoftMin": -3,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 8,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 22
+          },
+          "id": 76,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 2\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "2"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "yellow",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 22
+          },
+          "id": 80,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 2\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "light",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "2"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "timeseries"
+        }
+      ],
+      "title": "GreenHouse_N2",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 25,
+      "panels": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 0,
+            "y": 3
+          },
+          "id": 20,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 3\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 40,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 4,
+            "y": 3
+          },
+          "id": 23,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 3\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 8,
+            "y": 3
+          },
+          "id": 86,
+          "options": {
+            "displayMode": "lcd",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "orientation": "vertical",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 3\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidity",
+          "transparent": true,
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 40
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "blue",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 3
+          },
+          "id": 17,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-07-26T11:50:07+02:00",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "smart",
+              "folderUid": "InkDL6R4z",
+              "updated": "2022-07-26T11:50:07+02:00",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "Humidty",
+            "type": "timeseries",
+            "uid": "wkGrEeR4z",
+            "version": 1
+          },
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 3\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidty",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 42,
+                "axisSoftMin": -3,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 8,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 11
+          },
+          "id": 16,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-07-26T11:50:28+02:00",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "smart",
+              "folderUid": "InkDL6R4z",
+              "updated": "2022-07-26T11:50:28+02:00",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "Temperature",
+            "type": "timeseries",
+            "uid": "3syrPeg4k",
+            "version": 1
+          },
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 3\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "yellow",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 11
+          },
+          "id": 18,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-07-26T11:50:54+02:00",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "smart",
+              "folderUid": "InkDL6R4z",
+              "updated": "2022-07-26T11:50:54+02:00",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "Light",
+            "type": "timeseries",
+            "uid": "U8JjE6R4z",
+            "version": 1
+          },
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 3\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "light",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "timeseries"
+        }
+      ],
+      "title": "GreenHouse_N3",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 41,
+      "panels": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 0,
+            "y": 4
+          },
+          "id": 42,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-07-26T11:50:17+02:00",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "smart",
+              "folderUid": "InkDL6R4z",
+              "updated": "2022-07-26T12:00:53+02:00",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "Temperature_A",
+            "type": "gauge",
+            "uid": "Cec9PegVz",
+            "version": 2
+          },
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 4\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 40,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 4,
+            "y": 4
+          },
+          "id": 35,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 4\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 8,
+            "y": 4
+          },
+          "id": 87,
+          "options": {
+            "displayMode": "lcd",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "orientation": "vertical",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 4\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "4"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidity",
+          "transparent": true,
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 40
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "blue",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 4
+          },
+          "id": 29,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 4\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "4"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidty",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 42,
+                "axisSoftMin": -3,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 8,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 12
+          },
+          "id": 37,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 4\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "4"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "yellow",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 12
+          },
+          "id": 33,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 4\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "light",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "4"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "timeseries"
+        }
+      ],
+      "title": "GreenHouse_N4",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 44,
+      "panels": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 0,
+            "y": 53
+          },
+          "id": 52,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 5\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 40,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 4,
+            "y": 53
+          },
+          "id": 54,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "limit": 62,
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": false,
+            "text": {}
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 5\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 40
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 8,
+            "y": 53
+          },
+          "id": 46,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "9.0.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 5\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "5"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidity",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 40
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "blue",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 53
+          },
+          "id": 48,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM humidity\nWHERE\n  machineid = 5\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "humidity",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "5"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Humidty",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 42,
+                "axisSoftMin": -3,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 8,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 26
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 61
+          },
+          "id": 50,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM temperature\nWHERE\n  machineid = 5\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "temperature",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "5"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Temperature",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "3c2H-XR4k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-RdYlGr",
+                "seriesBy": "last"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 100,
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 25,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 4,
+                "scaleDistribution": {
+                  "log": 2,
+                  "type": "log"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "purple",
+                    "value": 20
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "sample"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "yellow",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 61
+          },
+          "id": 56,
+          "libraryPanel": {
+            "description": "",
+            "meta": {
+              "connectedDashboards": 1,
+              "created": "2022-07-26T11:50:54+02:00",
+              "createdBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              },
+              "folderName": "smart",
+              "folderUid": "InkDL6R4z",
+              "updated": "2022-07-26T11:50:54+02:00",
+              "updatedBy": {
+                "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+                "id": 1,
+                "name": "admin"
+              }
+            },
+            "name": "Light",
+            "type": "timeseries",
+            "uid": "U8JjE6R4z",
+            "version": 1
+          },
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "mysql",
+                "uid": "3c2H-XR4k"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  timestamp AS \"time\",\n  sample\nFROM light\nWHERE\n  machineid = 3\nORDER BY timestamp",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sample"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "light",
+              "timeColumn": "timestamp",
+              "timeColumnType": "datetime",
+              "where": [
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "machineid",
+                    "=",
+                    "3"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Light",
+          "transparent": true,
+          "type": "timeseries"
+        }
+      ],
+      "title": "GreenHouse_N5",
+      "type": "row"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": {
+          "type": "mysql",
+          "uid": "3c2H-XR4k"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "query0",
+        "options": [],
+        "query": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2022-07-23T22:31:43.978Z",
+    "to": "2022-07-25T09:27:47.562Z"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "SmartGreenHouse",
+  "uid": "EQx4EXg4k",
+  "version": 59,
+  "weekStart": ""
+}
