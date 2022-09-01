@@ -1,13 +1,19 @@
 # SmartGreenHouse-IoT
 Smart Greenhouse monitoring and management IOT system.
 
+INTRO
 
-Database
+
+
+
+
+COMMANDS
+Database:
 1) create DB : CREATE DATABASE SmartGreenHouse;
 2) select DB :  USE smartgreenhouse;
 3) import dump : SOURCE Dump_SmartGreenHouse.sql;
 
-Mosquitto
+Mosquitto:
 1) check status: systemctl status mosquitto 
 
 Collector:
