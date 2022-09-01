@@ -89,7 +89,7 @@ public class MqttCollector implements MqttCallback{
             Message msg = gson.fromJson(jsonMessage, Message.class);
 
             loggingColor = colors[msg.getMachineId()%colors.length];
-	        printToConsole("Machine: " + msg.getMachineId() +"] value is " + msg.getSample() + msg.getUnit() +" measurement on "+ topic +" topic;");
+	        printToConsole("Machine: " + msg.getMachineId() +"] value is " + msg.getSample() + msg.getUnit() +" measurement on "+ topic );
             mysqlMan.insertSample(msg);
 
             switch(msg.getTopic()) {
