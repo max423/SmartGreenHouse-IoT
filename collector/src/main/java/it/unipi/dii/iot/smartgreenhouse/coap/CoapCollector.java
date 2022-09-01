@@ -77,9 +77,9 @@ public class CoapCollector {
                         return;
                     }
                     loggingColor = colors[msg.getMachineId()%colors.length];
-                    printToConsole("Machine: " + msg.getMachineId() +"] value is " + msg.getSample() + msg.getUnit() +" measurement on "+ resource);   
+                    printToConsole("Machine: " + msg.getMachineId() +"] value is " + msg.getSample() + msg.getUnit() +" measurement on "+ resource);
                     mysqlMan.insertSample(msg);
-                    
+
                     String topic = msg.getTopic();
                     int sample = msg.getSample();
                     sensorState = -1;
@@ -124,7 +124,7 @@ public class CoapCollector {
                     }
 
                     if (sensorState != -1) {
-                     
+
                          switch (sensorState) {
                             case HUMIDITY_OK:
                                 printToConsole("State has changed, sending POST request to the node with state= HUMIDITY_OK to " + alertClient.getURI());
@@ -163,7 +163,29 @@ public class CoapCollector {
                                     if (responseSensorState != sensorState){
                                         printToConsole("Unable to change status on node with uri " + alertClient.getURI());
                                     } else {
-                                        printToConsole("Changed status to " + sensorState + " on node with uri " + alertClient.getURI());
+                                      
+                                        switch (sensorState) {
+                                                                    case HUMIDITY_OK:
+                                                                        printToConsole("Changed status to state= HUMIDITY_OK on node with uri " + alertClient.getURI());
+                                                                        break;
+                                                                    case HUMIDITY_ERROR:
+                                                                        printToConsole("Changed status to state= HUMIDITY_ERROR on node with uri " + alertClient.getURI());
+                                                                        break;
+                                                                    case TEMPERATURE_OK:
+                                                                        printToConsole("Changed status to state= TEMPERATURE_OK on node with uri " + alertClient.getURI());
+                                                                        break;
+                                                                    case TEMPERATURE_ERROR:
+                                                                        printToConsole("Changed status to state= TEMPERATURE_ERROR  on node with uri " + alertClient.getURI());
+                                                                        break;
+                                                                    case LIGHT_OK:
+                                                                        printToConsole("Changed status to state= LIGHT_OK on node with uri " + alertClient.getURI());
+                                                                        break;
+                                                                    case LIGHT_ERROR:
+                                                                        printToConsole("Changed status to state= LIGHT_ERROR on node with uri " + alertClient.getURI());
+                                                                        break;
+                                                                    default:
+                                                                        break;
+                                                                }
                                     }
                                 } else {
                                     printToConsole("400 BAD REQUEST on node with uri " + alertClient.getURI());
@@ -174,7 +196,7 @@ public class CoapCollector {
                             public void onError() {
                                 printToConsole("Failed");
                             }
-                            
+
                         }, "state=" + sensorState, MediaTypeRegistry.TEXT_PLAIN);
                     }
                 }catch(JsonParseException e){
