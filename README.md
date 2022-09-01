@@ -6,6 +6,7 @@ The Smart Greenhouse is prototype implementation of a remotely controlled and mo
 
 
 COMMANDS
+
 Database:
 1) create DB : CREATE DATABASE SmartGreenHouse;
 2) select DB :  USE smartgreenhouse;
