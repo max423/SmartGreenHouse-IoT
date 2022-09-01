@@ -8,6 +8,7 @@ INTRO
 
 
 COMMANDS
+
 Database:
 1) create DB : CREATE DATABASE SmartGreenHouse;
 2) select DB :  USE smartgreenhouse;
