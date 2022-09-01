@@ -2,13 +2,10 @@
 Smart Greenhouse monitoring and management IOT system.
 
 INTRO
-
-
-
+The Smart Greenhouse is prototype implementation of a remotely controlled and monitored greenhouse. Using an IoT - based communication and control technology, the smart greenhouse enables remote control and monitoring of the environment.The goal of this project is to design and implement an IoT solution for autonomous managing a Greenhouse. 
 
 
 COMMANDS
-
 Database:
 1) create DB : CREATE DATABASE SmartGreenHouse;
 2) select DB :  USE smartgreenhouse;
