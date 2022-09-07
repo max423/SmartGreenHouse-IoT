@@ -35,12 +35,12 @@ static uint8_t light_state;
 #define COAP_TEMPERATURE_ERROR      3
 #define COAP_LIGHT_OK               4
 #define COAP_LIGHT_ERROR            5
-/*
- * A handler function named [resource name]_handler must be implemented for each RESOURCE.
+
+/* A handler function named [resource name]_handler must be implemented for each RESOURCE
  * A buffer for the response payload is provided through the buffer pointer. Simple resources can ignore
- * preferred_size and offset, but must respect the REST_MAX_CHUNK_SIZE limit for the buffer.
+ * preferred_size and offset, but must respect the REST_MAX_CHUNK_SIZE limit for the buffer
  * If a smaller block size is requested for CoAP, the REST framework automatically splits the data.
- */
+*/
 
 RESOURCE(res_alert,
          "title =\"Alert\" POST/PUTstate=<state>;rt=\"Control\"",
@@ -49,6 +49,7 @@ RESOURCE(res_alert,
          res_post_handler,
          NULL);
 
+// POST request received from the collector
 static void res_post_handler(coap_message_t *request, coap_message_t *response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset) {
     const char *value = NULL;
     int state;
@@ -59,6 +60,7 @@ static void res_post_handler(coap_message_t *request, coap_message_t *response, 
 
     if (coap_get_post_variable(request, "state", &value)) {
         state = atoi(value);
+        // LEDS management
         switch (state)
         {
             case COAP_TEMPERATURE_OK:
