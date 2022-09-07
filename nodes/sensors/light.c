@@ -37,6 +37,7 @@ PROCESS_THREAD(light_sensor_process, ev, data){
     etimer_set(&et, CLOCK_SECOND*LIGHT_SAMPLING_INTERVAL);
 
     while(true) {
+        // light simulation
         PROCESS_YIELD();
         if(etimer_expired(&et)){
             if (sample == 40)
