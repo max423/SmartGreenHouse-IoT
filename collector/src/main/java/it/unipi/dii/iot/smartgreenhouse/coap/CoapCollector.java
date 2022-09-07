@@ -19,10 +19,9 @@ import it.unipi.dii.iot.smartgreenhouse.persistence.MysqlManager;
 import it.unipi.dii.iot.smartgreenhouse.utils.Message;
 import it.unipi.dii.iot.smartgreenhouse.utils.Sensor;
 
-/**
- CoAP collector collects and saves telemetry data in a database,
- and sends allert messages to nodes.
- **/
+// CoAP collector collects and saves telemetry data in a database,
+// and sends allert messages to nodes
+
 public class CoapCollector {
     CoapClient client;
     CoapClient alertClient;
@@ -50,6 +49,7 @@ public class CoapCollector {
     public static final String ANSI_RESET = "\u001B[0m";
 
     public CoapCollector(Sensor s){
+        // create new coap client
         client = new CoapClient(s.getUri());
         nodeIp = s.getNodeIp();
         mysqlMan = new MysqlManager(MysqlDriver.getInstance().openConnection());
@@ -70,6 +70,7 @@ public class CoapCollector {
         relation = client.observe(new CoapHandler() {
             public void onLoad(CoapResponse response) {
                 try{
+                    // read responde JSON
                     String jsonMessage = new String(response.getResponseText());
                     Gson gson = new Gson();
                     Message msg = gson.fromJson(jsonMessage, Message.class);
@@ -78,12 +79,14 @@ public class CoapCollector {
                     }
                     loggingColor = colors[msg.getMachineId()%colors.length];
                     printToConsole("Machine: " + msg.getMachineId() +"] value is " + msg.getSample() + msg.getUnit() +" measurement on "+ resource);
+                    // ADD to DB
                     mysqlMan.insertSample(msg);
 
                     String topic = msg.getTopic();
                     int sample = msg.getSample();
                     sensorState = -1;
 
+                    // verify threshold
                     switch (topic) {
                         case "humidity":
                             if (sample < HUMIDITY_THRESHOLD) {
@@ -147,6 +150,7 @@ public class CoapCollector {
                             default:
                                 break;
                         }
+                         // send post request to the node
                          alertClient.post(new CoapHandler() {
 
                             @Override
