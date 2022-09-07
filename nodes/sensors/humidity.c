@@ -34,6 +34,7 @@ PROCESS_THREAD(humidity_sensor_process, ev, data){
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&etm));
     etimer_set(&et, CLOCK_SECOND*HUMIDITY_SAMPLING_INTERVAL);
     while(true) {
+        // humidity simulation
         PROCESS_YIELD();
         if(etimer_expired(&et)){
             
