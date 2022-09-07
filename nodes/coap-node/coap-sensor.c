@@ -38,8 +38,7 @@ static uint8_t state;
 bool registered = false;
 static int node_id;
 
-/*
- * Resources to be activated need to be imported through the extern keyword.
+/* Resources to be activated need to be imported through the extern keyword
  * The build system automatically compiles the resources in the corresponding sub-directory.
  */
 extern coap_resource_t res_alert;
@@ -48,6 +47,7 @@ extern coap_resource_t res_humidity;
 extern coap_resource_t res_light;
 
 /*---------------------------------------------------------------------------*/
+// emulation of the sensors based on the event
 static void sensors_emulation(process_event_t event, int sample){
     if (event == TEMPERATURE_SAMPLE_EVENT){
     LOG_INFO("Temperature: new measurement %d. Updating collector.\n", sample);
@@ -64,7 +64,7 @@ static void sensors_emulation(process_event_t event, int sample){
 }
 
 /*---------------------------------------------------------------------------*/
-/* This function is will be passed to COAP_BLOCKING_REQUEST() to handle responses. */
+// This function is will be passed to COAP_BLOCKING_REQUEST() to handle responses
 void client_chunk_handler(coap_message_t *response){
     const uint8_t *chunk;
     if(response == NULL) {
@@ -84,6 +84,7 @@ static bool have_connectivity(void){
 
 PROCESS(coap_server, "Coap Server");
 
+// init the node
 static void init_node(){
     state = STATE_INIT;
 
@@ -121,7 +122,7 @@ PROCESS_THREAD(coap_server, ev, data){
 
     node_id = linkaddr_node_addr.u8[7];
 
-    //Registration to the collector
+    // registration to the collector
     coap_endpoint_parse(SERVER, strlen(SERVER), &server);
     coap_init_message(request, COAP_TYPE_CON, COAP_GET, 0);
     coap_set_header_uri_path(request, service_url);
