@@ -6,7 +6,7 @@ import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import it.unipi.dii.iot.smartgreenhouse.utils.Sensor;
 
-//Implements the CoapRegistration resource.
+// implements the CoapRegistration resource
 public class CoapRegistration extends CoapResource{
 
     public CoapRegistration(String name) {
