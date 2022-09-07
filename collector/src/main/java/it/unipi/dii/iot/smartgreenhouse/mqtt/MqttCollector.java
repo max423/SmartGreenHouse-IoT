@@ -16,8 +16,8 @@ import it.unipi.dii.iot.smartgreenhouse.persistence.MysqlManager;
 import it.unipi.dii.iot.smartgreenhouse.utils.Message;
 import it.unipi.dii.iot.smartgreenhouse.utils.Utils;
 
-/** MQTT collector collects and saves telemetry data in a database,
- and send alert messages to nodes.**/
+//MQTT collector collects and saves telemetry data in a database,
+//and send alert messages to nodes
 public class MqttCollector implements MqttCallback{
     String topic;
     String broker;
@@ -41,7 +41,7 @@ public class MqttCollector implements MqttCallback{
 
     public static final String[] colors = {"\u001B[95m", "\u001B[96m"}; //purple, cyan
     public static final String ANSI_RESET = "\u001B[0m";
-    /**Creates a new MQTT collector.*/
+    // create a new MQTT collector
     public MqttCollector(){
         Properties configurationParameters = Utils.readConfigurationParameters();
         topic = "#";
@@ -50,7 +50,7 @@ public class MqttCollector implements MqttCallback{
         mysqlMan = new MysqlManager(MysqlDriver.getInstance().openConnection());
     }
 
-    /**Starts the MQTT collector and subscribes to the topics of interest.*/
+     // start the MQTT collector and subscribe to the topics of interest
     public void start(){
         try {
             mqttClient = new MqttClient(broker, clientId);
@@ -73,6 +73,7 @@ public class MqttCollector implements MqttCallback{
         }
     }
 
+	// publish the mqtt message
     public void publish(String content, int node){
         try{
             MqttMessage message = new MqttMessage(content.getBytes());
@@ -84,14 +85,18 @@ public class MqttCollector implements MqttCallback{
 
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         try{
+		// read response JSON
             String jsonMessage = new String(message.getPayload());
             Gson gson = new Gson();
             Message msg = gson.fromJson(jsonMessage, Message.class);
 
             loggingColor = colors[msg.getMachineId()%colors.length];
 	        printToConsole("Machine: " + msg.getMachineId() +"] value is " + msg.getSample() + msg.getUnit() +" measurement on "+ topic );
-            mysqlMan.insertSample(msg);
+            
+		// ADD to DB
+		mysqlMan.insertSample(msg);
 
+		// verify threshold
             switch(msg.getTopic()) {
                 case "temperature":
                     if(msg.getSample() > TEMPERATURE_THRESHOLD && !temperatureWarningNodes.contains((Integer) msg.getMachineId())){
