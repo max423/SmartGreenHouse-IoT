@@ -40,6 +40,7 @@ PROCESS_THREAD(temperature_sensor_process, ev, data){
     etimer_set(&et, CLOCK_SECOND*TEMPERATURE_SAMPLING_INTERVAL);
   
     while(true) {
+        // temperature simulation
         PROCESS_YIELD();
         if(etimer_expired(&et)){
 
