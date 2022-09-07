@@ -12,10 +12,9 @@
 static void res_get_handler(coap_message_t *request, coap_message_t *response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 static void res_event_handler(void);
 
-/*
- * A handler function named [resource name]_handler must be implemented for each RESOURCE.
+/* A handler function named [resource name]_handler must be implemented for each RESOURCE
  * A buffer for the response payload is provided through the buffer pointer. Simple resources can ignore
- * preferred_size and offset, but must respect the REST_MAX_CHUNK_SIZE limit for the buffer.
+ * preferred_size and offset, but must respect the REST_MAX_CHUNK_SIZE limit for the buffer
  * If a smaller block size is requested for CoAP, the REST framework automatically splits the data.
  */
 static int temperature_sample;
@@ -42,7 +41,7 @@ static void res_get_handler(coap_message_t *request, coap_message_t *response, u
 }
 
 static void res_event_handler(void){
-    // Notify all the observers
+    // notify all the observers
     coap_notify_observers(&res_temperature);
 }
 
