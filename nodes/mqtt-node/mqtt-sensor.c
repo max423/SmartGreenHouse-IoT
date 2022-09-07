@@ -45,19 +45,19 @@ static uint8_t light_state;
 #define LOG_LEVEL LOG_LEVEL_APP
 
 /*---------------------------------------------------------------------------*/
-/* MQTT broker address. */
+// MQTT broker address
 #define MQTT_CLIENT_BROKER_IP_ADDR "fd00::1"
 
 static const char *broker_ip = MQTT_CLIENT_BROKER_IP_ADDR;
 
-// Default config values
+// default config values
 #define DEFAULT_BROKER_PORT         1883
 #define DEFAULT_PUBLISH_INTERVAL    (30 * CLOCK_SECOND)
 
-// We assume that the broker does not require authentication
+// we assume that the broker does not require authentication
 
 /*---------------------------------------------------------------------------*/
-/* Various states */
+// various states
 static uint8_t state;
 
 #define STATE_INIT    		  0
@@ -72,15 +72,14 @@ PROCESS_NAME(mqtt_client_process);
 AUTOSTART_PROCESSES(&mqtt_client_process);
 /*---------------------------------------------------------------------------*/
 
-/* Maximum TCP segment size for outgoing segments of our socket */
+// maximum TCP segment size for outgoing segments of our socket
 #define MAX_TCP_SEGMENT_SIZE    32
 #define CONFIG_IP_ADDR_STR_LEN   64
 
 static mqtt_status_t status;
 static char broker_address[CONFIG_IP_ADDR_STR_LEN];
 /*---------------------------------------------------------------------------*/
-/*
- * Buffers for Client ID and Topics.
+/* Buffers for Client ID and Topics
  * Make sure they are large enough to hold the entire respective string
  */
 #define BUFFER_SIZE 64
@@ -93,14 +92,13 @@ static char sub_topic[BUFFER_SIZE];
 
 static int node_id;
 
-// Periodic timer to check the state of the MQTT client
+// periodic timer to check the state of the MQTT client
 #define STATE_MACHINE_PERIODIC     (CLOCK_SECOND >> 1)
 static struct etimer periodic_timer;
 
 /*---------------------------------------------------------------------------*/
-/*
- * The main MQTT buffers.
- * We will need to increase if we start publishing more data.
+/* The main MQTT buffers
+ * We will need to increase if we start publishing more data
  */
 #define APP_BUFFER_SIZE 512
 static char humidity_buffer[APP_BUFFER_SIZE];
@@ -117,7 +115,7 @@ PROCESS(mqtt_client_process, "MQTT Client");
 /*---------------------------------------------------------------------------*/
 static void pub_handler(const char *topic, uint16_t topic_len, const uint8_t *chunk, uint16_t chunk_len){
     if(strcmp(topic, sub_topic) == 0) {
-        
+        // LEDS management
         if(strcmp((const char *)chunk, MQTT_TEMPERATURE_ERROR)==0){
             LOG_INFO("WARNING : MQTT_TEMPERATURE_ERROR\n");
     	    LOG_INFO("Switch ON ventilation system  \n");
@@ -188,6 +186,7 @@ static void pub_handler(const char *topic, uint16_t topic_len, const uint8_t *ch
     }
 }
 /*---------------------------------------------------------------------------*/
+// publish in the specific topic
 static void publish(char* topic, char* buffer){
     LOG_INFO("Publishing %s in the topic %s.\n", buffer, topic);
     int status = mqtt_publish(&conn, NULL, topic, (uint8_t *)buffer, strlen(buffer), MQTT_QOS_LEVEL_0, MQTT_RETAIN_OFF);
@@ -322,13 +321,13 @@ PROCESS_THREAD(mqtt_client_process, ev, data){
     PROCESS_BEGIN();
 
     LOG_INFO("MQTT Client Process\n");
-    // Initialize the ClientID as MAC address
+    // initialize the ClientID as MAC address
     snprintf(client_id, BUFFER_SIZE, "%02x%02x%02x%02x%02x%02x",
                      linkaddr_node_addr.u8[0], linkaddr_node_addr.u8[1],
                      linkaddr_node_addr.u8[2], linkaddr_node_addr.u8[5],
                      linkaddr_node_addr.u8[6], linkaddr_node_addr.u8[7]);
 
-    // Broker registration
+    // broker registration
     mqtt_register(&conn, &mqtt_client_process, client_id, mqtt_event, MAX_TCP_SEGMENT_SIZE);
 
 	  
@@ -342,10 +341,10 @@ PROCESS_THREAD(mqtt_client_process, ev, data){
     //leds_single_on(LEDS_RED);
     leds_on(LEDS_ALL);
 
-    // Initialize periodic timer to check the status
+    // initialize periodic timer to check the status
     etimer_set(&periodic_timer, STATE_MACHINE_PERIODIC);
 
-    /* Main loop */
+    // main loop
     while(1) {
 
         PROCESS_YIELD();
@@ -357,7 +356,7 @@ PROCESS_THREAD(mqtt_client_process, ev, data){
 		    }
 		  
 		    if(state == STATE_NET_OK){
-	            // Connect to MQTT server
+	            // connect to MQTT server
 			    LOG_INFO("Connecting!\n");
 			  
 			    memcpy(broker_address, broker_ip, strlen(broker_ip));
@@ -367,7 +366,7 @@ PROCESS_THREAD(mqtt_client_process, ev, data){
 		    }
 		  
 		    if(state==STATE_CONNECTED){
-	            // Subscribe to a topic
+	            // subscribe to a topic
                 char topic[64];
                 sprintf(topic, "alarm_%d", node_id);
                 strcpy(sub_topic,topic);
@@ -392,7 +391,7 @@ PROCESS_THREAD(mqtt_client_process, ev, data){
             else if ( state == STATE_DISCONNECTED ){
                 LOG_ERR("Disconnected form MQTT broker\n");
                 state = STATE_INIT;
-                // Recover from error
+                // recover from error
             }
       
         etimer_set(&periodic_timer, STATE_MACHINE_PERIODIC);
